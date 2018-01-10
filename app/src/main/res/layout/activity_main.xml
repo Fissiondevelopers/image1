@@ -1,0 +1,129 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:glassview="http://schemas.android.com/tools">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/no_images"
+        android:text="OOPS! You don't have images"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+</RelativeLayout>
+
+
+
+    <ImageView
+        android:id="@+id/backround_blurr_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/backround_blurr"
+        android:scaleType="fitXY"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.ms.square.android.glassview.GlassView
+        android:id="@+id/glass_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:background="#aa000000"
+        glassview:mockup_opacity="200"
+        glassview:blurRadius="100"/>
+    </FrameLayout>
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="#0090ff"
+        android:alpha="0.5">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="RetroShots"
+                android:textSize="20dp"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+
+                android:gravity="center"/>
+
+
+
+
+
+    </android.support.v7.widget.Toolbar>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="30dp"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/london3"/>
+
+
+
+
+
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/gridview"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnWidth="100dp"
+        android:numColumns="4"
+        android:verticalSpacing="5dp"
+        android:horizontalSpacing="5dp"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
+        />
+</LinearLayout>
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        android:src="@drawable/ic_menu">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/gallery_fab_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="#fae92c"
+            fab:fab_colorPressed="#de1eab"
+            fab:fab_colorRipple="#7bcd2a"
+            fab:fab_size="mini"
+            fab:fab_label="From Gallery"
+            android:src="@drawable/ic_gallery"/>
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/camera_fab_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="#fae92c"
+            fab:fab_colorPressed="#06ffea"
+            fab:fab_colorRipple="#7bcd2a"
+            fab:fab_size="mini"
+            fab:fab_label="Capture"
+            android:src="@drawable/ic_camera"/>
+        <
+
+
+
+
+</com.github.clans.fab.FloatingActionMenu>
+
+
+</FrameLayout>
