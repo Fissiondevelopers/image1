@@ -38,7 +38,7 @@
         android:layout_gravity="bottom"
         android:background="#aa000000"
         glassview:mockup_opacity="200"
-        glassview:blurRadius="100"/>
+        glassview:blurRadius="80"/>
     </FrameLayout>
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
@@ -67,6 +67,7 @@
     android:layout_marginTop="30dp"
     android:orientation="vertical">
     <ImageView
+        android:id="@+id/slideshow_image"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:scaleType="fitXY"
@@ -118,12 +119,13 @@
             fab:fab_size="mini"
             fab:fab_label="Capture"
             android:src="@drawable/ic_camera"/>
-        <
+
 
 
 
 
 </com.github.clans.fab.FloatingActionMenu>
+
 
 
 </FrameLayout>

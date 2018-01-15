@@ -38,14 +38,15 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+
+
+
+
+
     compile 'com.android.support:design:26.0.0-alpha1'
-
-
-
-
-    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
     compile 'com.android.support:design:26.0.0-alpha1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.github.clans:fab:1.6.4'
     compile 'com.adobe.creativesdk.foundation:auth:0.9.1251'
     compile 'com.adobe.creativesdk:image:4.8.4'
@@ -54,8 +55,10 @@ dependencies {
     compile 'com.adobe.creativesdk.foundation:assetcore:0.9.1251'
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.ms.square:glassview:0.1.0'
-
     compile 'com.android.support:support-v4:26.+'
+    compile 'com.jpeng:jpspringmenu:1.0.1'
+    compile 'com.github.mzelzoghbi:zgallery:0.3'
 
+    compile 'com.github.doctoror.particlesdrawable:library:1.0.8'
     testCompile 'junit:junit:4.12'
 }

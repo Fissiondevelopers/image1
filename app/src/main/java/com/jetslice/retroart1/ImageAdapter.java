@@ -56,6 +56,7 @@ public class ImageAdapter extends BaseAdapter {
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
 
+
         // First decode with inJustDecodeBounds=true to check dimensions
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;

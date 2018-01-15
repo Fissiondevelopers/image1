@@ -1,0 +1,90 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:glassview="http://schemas.android.com/tools"
+
+    android:background="@drawable/start_wall"
+    tools:context="com.jetslice.retroart1.SplashScreen">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.ms.square.android.glassview.GlassView
+            android:id="@+id/glass_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:background="#aa000000"
+            glassview:mockup_opacity="200"
+            glassview:blurRadius="80"/>
+
+        <com.doctoror.particlesdrawable.ParticlesView
+            android:id="@+id/particle_drawable"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:dotColor="@android:color/white"
+            app:frameDelayMillis="10"
+            app:lineColor="@android:color/white"
+            app:lineDistance="86dp"
+            app:lineThickness="1dp"
+            app:maxDotRadius="2dp"
+            app:minDotRadius="1dp"
+            app:numDots="100"
+            app:stepMultiplier="1" />
+
+        <TextView
+            android:id="@+id/login_btx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Login"
+            android:textColor="#FFFFFF"
+            android:textSize="24dp" />
+
+        <TextView
+            android:id="@+id/edit_btx"
+            android:layout_below="@id/login_btx"
+            android:text="Start Editing!"
+            android:textColor="#FFFFFF"
+            android:textSize="24dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="Rate us!"
+            android:layout_alignParentEnd="true"
+            android:textColor="#FFFFFF"
+            android:layout_alignParentBottom="true"
+            android:padding="8dp"
+            android:textSize="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="About us"
+            android:layout_alignParentBottom="true"
+            android:padding="8dp"
+            android:textColor="#FFFFFF"
+            android:textSize="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="55dp"
+            android:gravity="center"
+            android:text="RetroArt"
+            android:textColor="#FFFFFF"
+            android:textSize="30dp" />
+    </RelativeLayout>
+
+
+</FrameLayout>
+
