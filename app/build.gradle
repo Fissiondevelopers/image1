@@ -60,5 +60,6 @@ dependencies {
     compile 'com.github.mzelzoghbi:zgallery:0.3'
 
     compile 'com.github.doctoror.particlesdrawable:library:1.0.8'
+    compile 'hanks.xyz:htextview-library:0.1.5'
     testCompile 'junit:junit:4.12'
 }

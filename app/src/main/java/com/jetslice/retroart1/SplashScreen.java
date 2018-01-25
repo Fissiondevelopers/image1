@@ -18,6 +18,8 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.doctoror.particlesdrawable.ParticlesDrawable;
+import com.hanks.htextview.HTextView;
+import com.hanks.htextview.HTextViewType;
 
 import static com.jetslice.retroart1.R.id.particle_drawable;
 
@@ -35,8 +37,11 @@ public class SplashScreen extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-
         setContentView(R.layout.activity_splash_screen);
+        HTextView hTextView = (HTextView) findViewById(R.id.textjk);
+        hTextView.setAnimateType(HTextViewType.LINE);
+        hTextView.animateText("RetroArt");
+
         TextView mTextBtx=(TextView) findViewById(R.id.edit_btx);
         mTextBtx.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,5 +55,5 @@ public class SplashScreen extends AppCompatActivity {
     }
 
 
-    }
+}
 
