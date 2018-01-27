@@ -1,4 +1,5 @@
 package com.jetslice.retroart1;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -8,6 +9,8 @@ import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.v13.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +22,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -43,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int RequestPermissionCode = 7;
     Uri uri = null;
     ArrayList<String> images;
+    public String selected_image_uri;
     ImageView mBackroundBlurr;
     GridView gridView;
 
@@ -74,16 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int i, long l) {
-                registerForContextMenu(parent);
-                openContextMenu(parent);
 
-
-                return false;
-            }
-        });
         mFab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -215,6 +211,18 @@ public class MainActivity extends AppCompatActivity {
                 gridview.setAdapter(new ImageAdapter(MainActivity.this, images));
             }
         });
+        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int i, long l) {
+                registerForContextMenu(parent);
+                openContextMenu(parent);
+                selected_image_uri=images.get(i);
+
+
+
+                return true;
+            }
+        });
 
     }
 
@@ -289,21 +297,63 @@ public class MainActivity extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
+
             case R.id.menu_edit:
                 //TODO Edit_IMAGE_intent
-                Toast.makeText(MainActivity.this, "Edit", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Edit"+selected_image_uri, Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.menu_delete:
                 //TODO Delete_IMAGE
-                Toast.makeText(MainActivity.this, "Delete", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Delete"+selected_image_uri, Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.menu_share:
-                //TODO SHARE_IMAGE
-                Toast.makeText(MainActivity.this, "Share", Toast.LENGTH_SHORT).show();
+                //TODO SHARE_IMAGE and (add extra text message)optional
+                //TODO Solve this issue
+                Toast.makeText(MainActivity.this, "Share"+selected_image_uri, Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.setTitle("Title");
+                alert.setMessage("Message");
+                final EditText input = new EditText(this);
+                alert.setView(input);
+
+                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                        sharingIntent.setType("image/*");
+
+
+                        sharingIntent.putExtra(Intent.EXTRA_STREAM, selected_image_uri);
+
+                        startActivity(Intent.createChooser(sharingIntent, "Share via"));
+                    }
+                });
+
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    }
+                });
+
+                alert.show();
+
+                return true;
+            case R.id.set_as:
+                    Toast.makeText(MainActivity.this,"Set As"+selected_image_uri,Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Intent.ACTION_ATTACH_DATA);
+                intent.addCategory(Intent.CATEGORY_DEFAULT);
+                intent.setDataAndType(Uri.parse(selected_image_uri), "image/jpeg");
+                intent.putExtra("mimeType", "image/jpeg");
+                this.startActivity(Intent.createChooser(intent, "Set as:"));
+                    return true;
             default:
                 return super.onContextItemSelected(item);
 
         }
     }
+    //TODO Solve duplicate photo problem
+    //TODO Add view pager above
+    //TODO Add camera intent
+    //TODO Add interstitial ads only banner ads will be on quotes activity
+    //TODO firebase miscellaneous
+    //TODO Extra ideas:Add hand gestures for the viewpager(can be a update)
 
 }

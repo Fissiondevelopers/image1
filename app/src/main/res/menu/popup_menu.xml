@@ -9,5 +9,7 @@
             android:title="Edit" />
         <item android:id="@+id/menu_delete"
             android:title="Delete" />
+        <item android:id="@+id/set_as"
+            android:title="Set as...."/>
 
 </menu>

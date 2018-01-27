@@ -47,8 +47,6 @@ public class ImageAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ImageView imageView = (ImageView) convertView;
-
-        // if convertView's not recycled, initialize some attributes
         if (imageView == null) {
             imageView = new ImageView(mContext);
             imageView.setLayoutParams(new GridView.LayoutParams(WIDTH, HEIGHT));
@@ -57,7 +55,7 @@ public class ImageAdapter extends BaseAdapter {
         }
 
 
-        // First decode with inJustDecodeBounds=true to check dimensions
+
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(mThumbIds.get(position), options);
