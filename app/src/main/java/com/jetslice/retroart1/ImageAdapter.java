@@ -3,9 +3,13 @@ package com.jetslice.retroart1;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 
@@ -18,7 +22,9 @@ public class ImageAdapter extends BaseAdapter {
     private Context mContext;
     private List<String> mThumbIds;
 
-    public ImageAdapter(Context c, List<String> ids){
+
+
+    public ImageAdapter(Context c, List<String> ids) {
         mContext = c;
         this.mThumbIds = ids;
     }
@@ -41,17 +47,20 @@ public class ImageAdapter extends BaseAdapter {
     }
 
 
-
     // create a new ImageView for each item referenced by the Adapter
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ImageView imageView = (ImageView) convertView;
+        FrameLayout frameLayout = new FrameLayout(parent.getContext());
         if (imageView == null) {
             imageView = new ImageView(mContext);
             imageView.setLayoutParams(new GridView.LayoutParams(WIDTH, HEIGHT));
             imageView.setPadding(PADDING, PADDING, PADDING, PADDING);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            frameLayout.addView(imageView);
+
+
         }
 
 
@@ -69,4 +78,13 @@ public class ImageAdapter extends BaseAdapter {
         imageView.setImageBitmap(myBitmap);
         return imageView;
     }
+
+    public void removeItem(int position) {
+
+        mThumbIds.remove(position);
+        notifyDataSetChanged();
+    }
+
+
+
 }

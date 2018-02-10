@@ -1,16 +1,12 @@
 package com.jetslice.retroart1;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.v13.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,16 +18,14 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.adobe.creativesdk.aviary.AdobeImageIntent;
 import com.github.clans.fab.FloatingActionButton;
-import com.hanks.htextview.HTextView;
-import com.hanks.htextview.HTextViewType;
 import com.mzelzoghbi.zgallery.ZGallery;
 import com.mzelzoghbi.zgallery.entities.ZColor;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -50,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
     public String selected_image_uri;
     ImageView mBackroundBlurr;
     GridView gridView;
+    public int selected_image_index;
+
+
+
+
 
 
     @Override
@@ -90,6 +89,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
+
+
 
     File[] listFile;
 
@@ -205,17 +208,20 @@ public class MainActivity extends AppCompatActivity {
 
         }
         final GridView gridview = (GridView) findViewById(R.id.gridview);
-        gridview.post(new Runnable() {
-            @Override
-            public void run() {
-                gridview.setAdapter(new ImageAdapter(MainActivity.this, images));
-            }
-        });
+        ImageAdapter imageAdapter = new ImageAdapter(MainActivity.this,images);
+
+
+
+
+                gridview.setAdapter(imageAdapter);
+
+
         gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int i, long l) {
                 registerForContextMenu(parent);
                 openContextMenu(parent);
+                selected_image_index=i;
                 selected_image_uri=images.get(i);
 
 
@@ -223,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
 
     }
 
@@ -304,20 +311,29 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.menu_delete:
                 //TODO Delete_IMAGE
+                File file = new File(selected_image_uri);
+                if(file.exists()){
+                    file.delete();
+                    ImageAdapter imageAdapter = new ImageAdapter(this,images);
+                    imageAdapter.removeItem(selected_image_index);
+                    gridView.setAdapter(imageAdapter);
+                    imageAdapter.notifyDataSetChanged();
+
+
+                }
+                else{
+                    Toast.makeText(MainActivity.this,"Delete exception",Toast.LENGTH_SHORT).show();
+                }
+
+
+
+
                 Toast.makeText(MainActivity.this, "Delete"+selected_image_uri, Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.menu_share:
                 //TODO SHARE_IMAGE and (add extra text message)optional
                 //TODO Solve this issue
-                Toast.makeText(MainActivity.this, "Share"+selected_image_uri, Toast.LENGTH_SHORT).show();
-                AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                alert.setTitle("Title");
-                alert.setMessage("Message");
-                final EditText input = new EditText(this);
-                alert.setView(input);
 
-                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
                         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                         sharingIntent.setType("image/*");
 
@@ -325,19 +341,13 @@ public class MainActivity extends AppCompatActivity {
                         sharingIntent.putExtra(Intent.EXTRA_STREAM, selected_image_uri);
 
                         startActivity(Intent.createChooser(sharingIntent, "Share via"));
-                    }
-                });
 
-                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                    }
-                });
 
-                alert.show();
 
-                return true;
+
+
             case R.id.set_as:
-                    Toast.makeText(MainActivity.this,"Set As"+selected_image_uri,Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,"Set As"+selected_image_uri,Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Intent.ACTION_ATTACH_DATA);
                 intent.addCategory(Intent.CATEGORY_DEFAULT);
                 intent.setDataAndType(Uri.parse(selected_image_uri), "image/jpeg");
@@ -348,6 +358,8 @@ public class MainActivity extends AppCompatActivity {
                 return super.onContextItemSelected(item);
 
         }
+
+
     }
     //TODO Solve duplicate photo problem
     //TODO Add view pager above
